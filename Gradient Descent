@@ -1,0 +1,162 @@
+
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
+from matplotlib import pyplot as plt
+df=pd.read_csv('/content/drive/MyDrive/Semester projects/Semester 5/Semester 5 AI/AI Lab 3/task/HousingData.csv')
+df
+plt.xlabel('RM')
+plt.ylabel('occupied Homes')
+plt.scatter(df.RM,df.AGE,color='Blue',marker="+")
+median_age= df.AGE.median()
+median_age# Output  76.8000
+df.AGE = df.AGE.fillna(median_age)
+x=df['RM'].values.reshape(-1, 1)
+y=df['AGE']
+reg = linear_model.LinearRegression()
+reg.fit(x,y)
+new_y=8
+reg.predict([[new_y]])
+
+
+#lab task 2
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
+from matplotlib import pyplot as plt
+df=pd.read_csv('/content/drive/MyDrive/Semester projects/Semester 5/Semester 5 AI/AI Lab 3/task/HousingData.csv')
+df
+plt.xlabel('RM')
+plt.ylabel('occupied Homes')
+plt.scatter(df.RM,df.AGE,color='Blue',marker="+")
+median_age= df.AGE.median()
+median_age# Output  76.8000
+median_crim= df.CRIM.median()
+median_crim# Output  0.253715
+df.AGE = df.AGE.fillna(median_age)
+df.CRIM=df.CRIM.fillna(median_crim)
+x=df[['RM','CRIM']]
+y=df['AGE']
+x
+reg = linear_model.LinearRegression()
+reg.fit(x,y)
+reg.predict([[8,0.2]])
+
+#Home task-1
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
+from matplotlib import pyplot as plt
+df=pd.read_csv('/content/drive/MyDrive/Semester projects/Semester 5/Semester 5 AI/AI Lab 3/task/titanic.csv')
+df
+plt.xlabel('Age')
+plt.ylabel('Survived')
+plt.scatter(df.Age,df.Survived,color='Blue',marker="+")
+median_age= df.Age.median()
+median_age# Output  28.0
+df.Age = df.Age.fillna(median_age)
+x=df['Age'].values.reshape(-1, 1)
+y=df['Survived']
+reg = linear_model.LinearRegression()
+reg.fit(x,y)
+new_y=40
+reg.predict([[new_y]])
+
+
+#Home Task 2
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
+from matplotlib import pyplot as plt
+df=pd.read_csv('/content/drive/MyDrive/Semester projects/Semester 5/Semester 5 AI/AI Lab 3/task/titanic.csv')
+df
+median_age= df.Age.median()
+median_age# Output  28.0
+df.Age = df.Age.fillna(median_age)
+x=df[['Age','SibSp']]
+y=df['Survived']
+reg = linear_model.LinearRegression()
+reg.fit(x,y)
+reg.predict([[40,5]])
+
+#home tsk-3
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(0)
+n_samples = 100
+X = np.random.rand(n_samples, 1)  # Random feature values
+y = 2 * X + 1 + 0.1 * np.random.randn(n_samples)  # Linear relationship with noise
+mean = np.mean(X)
+std = np.std(X)
+X = (X - mean) / std
+theta0 = 0  # Bias term (intercept)
+theta1 = 0  # Coefficient for the feature
+learning_rate = 0.1
+iterations = 100
+cost_history = []
+
+# Perform gradient descent
+for i in range(iterations):
+    # Calculate predictions
+    y_pred = theta0 + theta1 * X
+    error = y_pred - y
+    gradient0 = np.mean(error)
+    gradient1 = np.mean(error * X)
+    theta0 -= learning_rate * gradient0
+    theta1 -= learning_rate * gradient1
+    cost = np.mean(error**2)
+    cost_history.append(cost)
+plt.figure(figsize=(8, 6))
+plt.plot(range(iterations), cost_history)
+plt.xlabel('Iterations')
+plt.ylabel('Cost (Mean Squared Error)')
+plt.title('Gradient Descent: Cost Function Over Iterations')
+plt.show()
+print("Optimized Model Parameters:")
+print("theta0:", theta0)
+print("theta1:", theta1)
+
+
+import numpy as np
+
+def gradient_descent(X, y, theta, learning_rate, num_iterations):
+    m = len(y)
+    cost_history = []
+
+    for iteration in range(num_iterations):
+        predictions = X.dot(theta)
+        error = predictions - y
+        gradient = X.T.dot(error) / m
+
+        # Update the parameters (theta) using the gradients and learning rate
+        theta -= learning_rate * gradient
+
+        # Calculate and record the cost (mean squared error)
+        cost = np.mean(error**2)
+        cost_history.append(cost)
+
+    return theta, cost_history
+
+# Generate some random data for demonstration
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# Add a column of ones to X for the bias term (intercept)
+X_b = np.c_[np.ones((X.shape[0], 1)), X]
+
+# Initialize model parameters (coefficients)
+theta = np.random.randn(2, 1)
+
+# Set hyperparameters
+learning_rate = 0.01
+num_iterations = 1000
+
+# Perform gradient descent
+final_theta, cost_history = gradient_descent(X_b, y, theta, learning_rate, num_iterations)
+
+# Print the final coefficients
+print("Final Coefficients (theta0, theta1):", final_theta.ravel())
+
+# Print the final cost (mean squared error)
+print("Final Cost:", cost_history[-1])
