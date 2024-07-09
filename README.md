@@ -1,2 +1,2 @@
 # Gradient-descent-from-scratch-in-python
-In this code we have implemented gradient descent from scratch in python language
+In this code we have implemented gradient descent from scratch in python language.Start with initial values for the parameters (weights). Calculate predicted values using the current parameters. Evaluate how far off the predictions are from actual values. Determine the direction and rate of change needed to minimize the cost. Adjust parameters in the direction opposite to the gradients, using a learning rate. Repeat the process until the cost function converges.
